@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 
 from homepage.models import Profile
 from homepage.services.currencies import get_exchange_rates
+from homepage.services.jokes import get_single_joke
 
 
 class HomePageView(TemplateView):
@@ -24,9 +25,11 @@ async def dashboard(request: HttpRequest) -> HttpResponse:
         "jpy",
         "btc",
     )
+    joke = await get_single_joke()
     context = dict(
         profile=profile,
         currencies=currencies,
+        joke=joke,
     )
     return render(
         request=request,
