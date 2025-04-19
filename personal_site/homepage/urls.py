@@ -8,7 +8,12 @@ app_name = "homepage"
 urlpatterns = [
     path(
         "",
-        views.get_homepage,
+        views.HomePageView.as_view(),
         name="home",
+    ),
+    path(
+        "dashboard/",
+        views.dashboard,
+        name="dashboard",
     ),
 ]

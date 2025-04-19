@@ -11,6 +11,8 @@
     <a href="{% url 'login' %}">Login</a>
   {% else %}
     <div>Welcome, {% firstof user.first_name user.username %}</div>
+    <a href="{% url 'homepage:dashboard' %}">Dashboard</a>
+    <br>
     <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
       <button type="submit">Logout</button>
