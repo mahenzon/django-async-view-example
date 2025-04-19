@@ -1,0 +1,8 @@
+{% extends "admin/login.html" %}
+
+{% block branding %}
+    <div id="site-name"><a href="/">Login</a></div>
+    {% if user.is_anonymous %}
+        {% include "admin/color_theme_toggle.html" %}
+    {% endif %}
+{% endblock %}

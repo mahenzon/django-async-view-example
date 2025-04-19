@@ -1,15 +1,26 @@
 {% extends 'homepage/base.html' %}
 
 {% block title %}
-	Home
+  Home
 {% endblock %}
 
 {% block body %}
-	<h1>Hello Home!</h1>
-    <h2>Items:</h2>
-    <ul>
-        {% for item in items %}
-        	<li>{{ item }}</li>
-        {% endfor %}
-    </ul>
+  <h1>Hello Home!</h1>
+  <hr>
+  {% if user.is_anonymous %}
+    <a href="{% url 'login' %}">Login</a>
+  {% else %}
+    <div>Welcome, {% firstof user.first_name user.username %}</div>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+  {% endif %}
+  <hr>
+  <h2>Items:</h2>
+  <ul>
+    {% for item in items %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}
