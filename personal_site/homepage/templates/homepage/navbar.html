@@ -36,10 +36,10 @@
       </ul>
 
 
-      {% if user.is_anonymous %}
+      {% if request.auser.is_anonymous %}
         <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
       {% else %}
-        {% firstof user.first_name user.username %}&nbsp;
+        {% firstof request.auser.first_name request.auser.username %}&nbsp;
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn btn-secondary">Logout</button>
