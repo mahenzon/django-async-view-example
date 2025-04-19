@@ -7,5 +7,4 @@
 {% block body %}
 	<h1>Dashboard</h1>
   <h2><a href="{% url 'homepage:home' %}">Home</a></h2>
-  <div>Welcome, {% firstof user.first_name user.username %}</div>
 {% endblock %}
