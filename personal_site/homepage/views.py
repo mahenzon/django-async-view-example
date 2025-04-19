@@ -1,3 +1,5 @@
+from asyncio import TaskGroup
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -17,19 +19,25 @@ class HomePageView(TemplateView):
 
 @login_required()
 async def dashboard(request: HttpRequest) -> HttpResponse:
-    profile: Profile = await Profile.objects.select_related("user").aget(
-        user=request.user,
-    )
-    currencies = await get_exchange_rates(
-        "rub",
-        "jpy",
-        "btc",
-    )
-    joke = await get_single_joke()
+    async with TaskGroup() as tg:
+        profile_task = tg.create_task(
+            Profile.objects.select_related("user").aget(
+                user=request.user,
+            )
+        )
+        currencies_task = tg.create_task(
+            get_exchange_rates(
+                "rub",
+                "jpy",
+                "btc",
+            )
+        )
+        joke_task = tg.create_task(get_single_joke())
+
     context = dict(
-        profile=profile,
-        currencies=currencies,
-        joke=joke,
+        profile=profile_task.result(),
+        currencies=currencies_task.result(),
+        joke=joke_task.result(),
     )
     return render(
         request=request,
