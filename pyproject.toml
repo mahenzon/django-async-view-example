@@ -9,3 +9,8 @@ dependencies = [
     "httpx>=0.28.1",
     "psycopg[binary]>=3.2.6",
 ]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=5.1.0",
+]
