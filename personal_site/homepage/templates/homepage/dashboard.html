@@ -1,10 +1,36 @@
 {% extends 'homepage/base.html' %}
 
 {% block title %}
-	Dashboard
+  Dashboard
 {% endblock %}
 
 {% block body %}
-	<h1>Dashboard</h1>
-  <h2><a href="{% url 'homepage:home' %}">Home</a></h2>
+  <h1>Dashboard</h1>
+
+
+  <div class="card my-2">
+    <div class="card-body">
+      <h5 class="card-title"
+      >{% firstof profile.full_name profile.user.username %}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        <code>{{ profile.user.email }}</code></h6>
+      <p class="card-text">{{ profile.bio }}</p>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Birth date: <strong>{{ profile.birth_date|date:"jS F Y"|default:"-" }}</strong></li>
+        {% if profile.city %}
+          <li class="list-group-item">City: <strong>{{ profile.city }}</strong></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <h3>Currencies</h3>
+  {% for name, value in currencies.items %}
+    <div class="row cols-6">
+      <div class="col col-2 text-end"><code>{{ name|upper }}</code></div>
+      <div class="col col-auto">{{ value }}</div>
+    </div>
+  {% endfor %}
+
 {% endblock %}
