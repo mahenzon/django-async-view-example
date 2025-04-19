@@ -77,7 +77,7 @@ WSGI_APPLICATION = "personal_site.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": getenv("DB_NAME", "movies_catalog"),
+        "NAME": getenv("DB_NAME", "personal_site"),
         "USER": getenv("DB_USER", "app"),
         "PASSWORD": getenv("DB_PASSWORD", "supersecretpassword"),
         "HOST": getenv("DB_HOST", "localhost"),
