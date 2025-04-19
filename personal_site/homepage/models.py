@@ -25,6 +25,12 @@ class Profile(models.Model):
     class Meta:
         ordering = ("id",)
 
+    @property
+    def full_name(self) -> str:
+        if self.user.first_name and self.user.last_name:
+            return f"{self.user.first_name} {self.user.last_name}"
+        return self.user.first_name or self.user.last_name
+
     def __str__(self) -> str:
         return str(self.user)
 
